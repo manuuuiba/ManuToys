@@ -29,13 +29,15 @@
             <div class="hidden md:flex items-center space-x-6 text-sm font-semibold">
                  <a href="#novedades" class="text-gray-300 hover:text-primario transition-colors">Novedades</a>
                  <a href="#productos" class="text-gray-300 hover:text-primario transition-colors">Productos</a>
+                 <a href="#testimonios" class="text-gray-300 hover:text-primario transition-colors">Opiniones</a>
                  <a href="#contacto" class="text-gray-300 hover:text-primario transition-colors">Contacto</a>
                  <div class="w-px h-6 bg-gray-700"></div>
                  
                  <!-- Auth State UI --><div id="auth-container" class="flex items-center space-x-4">
                     <!-- Logged Out State --><div id="logged-out-view" class="flex items-center space-x-4">
                         <button id="loginBtn" class="text-gray-300 hover:text-white transition-colors">Iniciar Sesión</button>
-                        <button id="registerBtn" class="bg-primario hover:bg-primario-hover text-white font-bold py-2 px-4 rounded-full transition-all duration-300">Registrarse</button>
+                        <!-- CORREGIDO: Clases de Tailwind limpiadas para que el CSS controle el color del texto -->
+                        <button id="registerBtn" class="bg-primario hover:bg-primario-hover font-bold py-2 px-4 rounded-full transition-all duration-300 button-glow">Registrarse</button>
                     </div>
                     <!-- Logged In State --><div id="logged-in-view" class="hidden items-center space-x-4">
                         <span id="user-email" class="text-sm text-secundario"></span>
@@ -43,12 +45,12 @@
                     </div>
                  </div>
                  
-                 <!-- Carrito Habilitado --><button id="cart-button" class="relative text-gray-300 hover:text-primario transition-colors">
+                 <!-- Carrito Habilitado --><button id="cart-button" class="relative text-gray-300 hover:text-primario transition-colors" aria-label="Abrir carrito de compras">
                     <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                     <span id="cart-count" class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
                  </button>
                  </div>
-            <button id="mobileMenuBtn" class="md:hidden text-gray-200 focus:outline-none">
+            <button id="mobileMenuBtn" class="md:hidden text-gray-200 focus:outline-none" aria-label="Abrir menú móvil">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </nav>
@@ -56,12 +58,13 @@
              <div class="container mx-auto px-6 py-4 flex flex-col space-y-4">
                 <a href="#novedades" class="text-gray-300 hover:text-primario transition-colors">Novedades</a>
                 <a href="#productos" class="text-gray-300 hover:text-primario transition-colors">Productos</a>
+                <a href="#testimonios" class="text-gray-300 hover:text-primario transition-colors">Opiniones</a>
                 <a href="#contacto" class="text-gray-300 hover:text-primario transition-colors">Contacto</a>
                 <hr class="border-gray-700"/>
                 <!-- Mobile Auth UI --><div id="mobile-auth-container">
                     <div id="mobile-logged-out-view">
                         <button id="mobileLoginBtn" class="w-full text-left text-gray-300 hover:text-white transition-colors">Iniciar Sesión</button>
-                        <button id="mobileRegisterBtn" class="w-full text-left mt-2 bg-primario hover:bg-primario-hover text-white font-bold py-2 px-4 rounded-lg transition-all">Registrarse</button>
+                        <button id="mobileRegisterBtn" class="w-full text-left mt-2 bg-primario hover:bg-primario-hover font-bold py-2 px-4 rounded-lg transition-all button-glow">Registrarse</button>
                     </div>
                     <div id="mobile-logged-in-view" class="hidden">
                         <span id="mobile-user-email" class="block text-secundario mb-2"></span>
@@ -78,10 +81,10 @@
         <div class="absolute inset-0 bg-black/50 z-10"></div>
         <div class="relative z-20 animate-fade-in">
             <img src="images/ManuToysLogo.PNG" alt="ManuToys Logo" class="h-40 w-auto mx-auto mb-8 hero-logo">
-            <!-- CORRECCIÓN RESPONSIVA: Añadido text-4xl y sm:text-5xl --><h1 class="text-4xl sm:text-5xl md:text-7xl font-display text-white text-shadow-glow tracking-wider flicker-text">Tu Pasión. Nuestra Colección.</h1>
+            <h1 class="text-4xl sm:text-5xl md:text-7xl font-display text-white text-shadow-glow tracking-wider">Tu Pasión. Nuestra Colección.</h1>
             <p class="mt-4 text-lg md:text-xl max-w-2xl mx-auto text-gray-300">Los modelos a escala más exclusivos y el garage N°1 de coleccionistas.</p>
         </div>
-        <a href="#novedades" class="absolute bottom-12 z-20 animate-slide-up">
+        <a href="#novedades" class="absolute bottom-12 z-20 animate-slide-up" aria-label="Ir a novedades">
             <svg class="w-10 h-10 text-gray-400 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </a>
     </section>
@@ -91,19 +94,22 @@
             <h2 class="text-4xl font-display text-center text-secundario mb-4">Novedades del Garage</h2>
             <p class="text-center text-gray-400 mb-8 max-w-2xl mx-auto">Lo último en llegar. Filtra por categoría para encontrar tu próxima pieza.</p>
             <div id="filters" class="flex justify-center flex-wrap gap-4 mb-12">
-                <button class="filter-button active bg-primario text-white font-semibold py-2 px-5 rounded-full" data-filter="all">Todos</button>
+                <button class="filter-button active bg-primario font-semibold py-2 px-5 rounded-full" data-filter="all">Todos</button>
                 <button class="filter-button bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full" data-filter="normal">Hot Wheels</button>
                 <button class="filter-button bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full" data-filter="premium">Premium</button>
+                <button class="filter-button bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-5 rounded-full" data-filter="minigt">Mini GT</button>
             </div>
             <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Product items will be injected by JS --></div>
         </section>
         
+        <!-- Divisor de sección animado --><div class="section-divider reveal"></div>
+
         <section class="mt-20 reveal" id="productos">
             <h2 class="text-4xl font-display text-center text-primario mb-12">Explora el Catálogo</h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-center">
-                <!-- Adaptamos "Cripta Box" a "Feature Box" --><div class="feature-box">
-                    <div class="feature-icon-wrapper text-secundario">
+                <!-- "category-box" para consistencia --><div class="category-box">
+                    <div class="category-icon-wrapper text-secundario">
                         <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                         </svg>
@@ -111,8 +117,8 @@
                     <h3 class="text-2xl font-display text-secundario mb-4">Hot Wheels Regulares</h3>
                     <p>La línea principal que lo empezó todo. Encuentra desde autos de fantasía hasta réplicas de calle. Perfecto para iniciar tu colección.</p>
                 </div>
-                <div class="feature-box">
-                    <div class="feature-icon-wrapper text-primario">
+                <div class="category-box">
+                    <div class="category-icon-wrapper text-primario">
                          <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.4-1.683 3.034L10.5 21 3 15.197V8.985L10.5 3l8.817 5.143A4.5 4.5 0 0 1 21 12Z" />
                          </svg>
@@ -123,7 +129,9 @@
             </div>
         </section>
 
-        <!-- Sección Contacto (Añadida) --><section id="contacto" class="mt-20 reveal container mx-auto px-6 py-12 max-w-3xl">
+        <!-- Divisor de sección animado --><div class="section-divider reveal"></div>
+
+        <!-- Sección Contacto --><section id="contacto" class="mt-20 reveal container mx-auto px-6 py-12 max-w-3xl">
             <h2 class="text-4xl font-display text-center text-white mb-4">Contáctanos</h2>
             <p class="text-center text-gray-400 mb-12">¿Tienes preguntas o buscas un modelo en especial? Escríbenos.</p>
             
@@ -143,8 +151,36 @@
                     <textarea name="message" id="contact-message" rows="5" class="form-input w-full bg-stone-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-primario focus:border-primario" required></textarea>
                     <p class="error-message">Por favor, escribe tu mensaje.</p>
                 </div>
-                <button type="submit" class="w-full text-center bg-primario hover:bg-primario-hover text-white font-bold py-3 rounded-lg transition-all duration-300 button-glow">Enviar Mensaje</button>
+                <button type="submit" class="w-full text-center bg-primario hover:bg-primario-hover font-bold py-3 rounded-lg transition-all duration-300 button-glow">Enviar Mensaje</button>
             </form>
+        </section>
+
+        <!-- Testimonios --><section id="testimonios" class="py-16 mt-20 reveal">
+            <h2 class="text-4xl font-display text-center text-secundario mb-12">Opiniones del Garage</h2>
+            <div class="relative max-w-3xl mx-auto">
+                <div class="testimonial-slider-wrapper overflow-hidden">
+                    <div class="testimonial-slider flex transition-transform duration-500 ease-in-out">
+                        <!-- Slide 1 --><div class="testimonial-slide w-full flex-shrink-0 px-12 text-center">
+                            <p class="text-2xl text-white italic mb-4">"¡Increíble servicio! El empaque fue perfecto y mi Premium llegó en estado de menta. 100% recomendado."</p>
+                            <p class="font-display text-primario text-xl">- Carlos V.</p>
+                        </div>
+                        <!-- Slide 2 --><div class="testimonial-slide w-full flex-shrink-0 px-12 text-center">
+                            <p class="text-2xl text-white italic mb-4">"Encontré aquí el Datsun 240z que me faltaba. Tienen piezas que no se ven en otros lados. ¡Ya soy cliente!"</p>
+                            <p class="font-display text-primario text-xl">- Sofía G.</p>
+                        </div>
+                        <!-- Slide 3 --><div class="testimonial-slide w-full flex-shrink-0 px-12 text-center">
+                            <p class="text-2xl text-white italic mb-4">"La mejor tienda de coleccionables en León. Se nota la pasión que tienen por los autos."</p>
+                            <p class="font-display text-primario text-xl">- Miguel R.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Botones de Navegación del Slider --><button id="testimonial-prev" class="testimonial-nav left-0" aria-label="Testimonio anterior">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                </button>
+                <button id="testimonial-next" class="testimonial-nav right-0" aria-label="Siguiente testimonio">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+            </div>
         </section>
 
     </main>
@@ -162,6 +198,7 @@
                     <ul class="space-y-2 text-sm">
                         <li><a href="#novedades" class="hover:text-primario">Novedades</a></li>
                         <li><a href="#productos" class="hover:text-primario">Productos</a></li>
+                        <li><a href="#testimonios" class="hover:text-primario">Opiniones</a></li>
                         <li><a href="#contacto" class="hover:text-primario">Contacto</a></li>
                     </ul>
                 </div>
@@ -169,10 +206,11 @@
                     <h3 class="text-lg font-semibold text-gray-300 mb-4">Síguenos</h3>
                     <p class="text-sm mb-4">Recibe notificaciones de lanzamientos y ofertas especiales.</p>
                     <div class="flex space-x-4 social-icons">
-                        <a href="#" class="text-gray-400 hover:text-primario">
+                        <!-- Enlaces de Facebook e Instagram añadidos -->
+                        <a href="https://www.facebook.com/manu.toys/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primario" aria-label="Facebook de ManuToys">
                             <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
                         </a>
-                        <a href="#" class="text-gray-400 hover:text-primario">
+                        <a href="https://www.instagram.com/manu._.toys/" target="_blank" rel="noopener noreferrer" class="text-gray-400 hover:text-primario" aria-label="Instagram de ManuToys">
                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049 1.064.218 1.791.465 2.427A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7.167a4.833 4.833 0 100 9.666 4.833 4.833 0 000-9.666zM12 15a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" clip-rule="evenodd" /></svg>
                         </a>
                     </div>
@@ -186,20 +224,41 @@
     
     <!-- Modales --><div id="welcomeModal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-[100] opacity-0">
         <div class="modal-content relative bg-stone-900 overflow-hidden rounded-xl shadow-2xl w-full max-w-md p-8 text-center">
-            <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl z-10">&times;</button>
+            <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl z-10" aria-label="Cerrar modal">&times;</button>
             <img src="images/ManuToysLogo.PNG" alt="Logo" class="modal-logo mx-auto mb-4">
             <h3 class="text-3xl font-display text-primario text-center mb-2">¡Bienvenido, Coleccionista!</h3>
-            <p class="text-center text-gray-400 text-sm mb-8">Únete al garage o inicia sesión para guardar tus piezas.</p>
+            <p class="text-center text-gray-400 text-sm mb-6">Únete al garage o inicia sesión para guardar tus piezas.</p>
+            
+            <!-- Sección de Redes Sociales en Modal -->
+            <div class="mb-6">
+                <div class="relative">
+                    <div class="absolute inset-0 flex items-center" aria-hidden="true">
+                        <div class="w-full border-t border-gray-700"></div>
+                    </div>
+                    <div class="relative flex justify-center">
+                        <span class="bg-stone-900 px-3 text-sm font-medium text-primario">¡Síguenos!</span>
+                    </div>
+                </div>
+                <div class="flex justify-center gap-6 mt-4">
+                    <a href="https://www.facebook.com/manu.toys/" target="_blank" rel="noopener noreferrer" class="social-link text-gray-400 hover:text-primario" aria-label="Facebook de ManuToys">
+                        <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" clip-rule="evenodd" /></svg>
+                    </a>
+                    <a href="https://www.instagram.com/manu._.toys/" target="_blank" rel="noopener noreferrer" class="social-link text-gray-400 hover:text-primario" aria-label="Instagram de ManuToys">
+                       <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.024.06 1.378.06 3.808s-.012 2.784-.06 3.808c-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.024.048-1.378.06-3.808.06s-2.784-.012-3.808-.06c-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.048-1.024-.06-1.378-.06-3.808s.012-2.784.06-3.808c.049 1.064.218 1.791.465 2.427A4.902 4.902 0 016.08 2.525c.636-.247 1.363-.416 2.427-.465C9.53 2.013 9.884 2 12.315 2zM12 7.167a4.833 4.833 0 100 9.666 4.833 4.833 0 000-9.666zM12 15a3 3 0 110-6 3 3 0 010 6zm6.406-11.845a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" clip-rule="evenodd" /></svg>
+                    </a>
+                </div>
+            </div>
+            
             <div class="flex flex-col space-y-4">
-                <button id="welcomeLoginBtn" class="w-full text-center bg-primario hover:bg-primario-hover text-white font-bold py-3 rounded-lg transition-all duration-300 button-glow">Iniciar Sesión</button>
-                <button id="welcomeRegisterBtn" class="w-full text-center bg-secundario hover:bg-secundario-hover text-black font-bold py-3 rounded-lg transition-all duration-300">Registrarse</button>
+                <button id="welcomeLoginBtn" class="w-full text-center bg-primario hover:bg-primario-hover font-bold py-3 rounded-lg transition-all duration-300 button-glow">Iniciar Sesión</button>
+                <button id="welcomeRegisterBtn" class="w-full text-center bg-secundario hover:bg-secundario-hover font-bold py-3 rounded-lg transition-all duration-300">Registrarse</button>
             </div>
         </div>
     </div>
     
     <div id="loginModal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-[100] opacity-0">
         <div class="modal-content relative bg-stone-900 overflow-hidden rounded-xl shadow-2xl w-full max-w-md p-8">
-            <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl z-10">&times;</button>
+            <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl z-10" aria-label="Cerrar modal">&times;</button>
             <img src="images/ManuToysLogo.PNG" alt="Logo" class="modal-logo mx-auto mb-4">
             <h3 class="text-2xl font-display text-primario text-center mb-2">Iniciar Sesión</h3>
             <p class="text-center text-gray-400 text-sm mb-6">Bienvenido de vuelta al garage.</p>
@@ -214,13 +273,13 @@
                     <input type="password" name="password" id="login-password" class="form-input w-full bg-stone-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-primario focus:border-primario" required minlength="6">
                     <p class="error-message">La contraseña debe tener al menos 6 caracteres.</p>
                 </div>
-                <button type="submit" class="w-full text-center bg-primario hover:bg-primario-hover text-white font-bold py-3 rounded-lg transition-all duration-300 button-glow">Entrar</button>
+                <button type="submit" class="w-full text-center bg-primario hover:bg-primario-hover font-bold py-3 rounded-lg transition-all duration-300 button-glow">Entrar</button>
             </form>
         </div>
     </div>
     <div id="registerModal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-[100] opacity-0">
         <div class="modal-content relative bg-stone-900 overflow-hidden rounded-xl shadow-2xl w-full max-w-md p-8">
-             <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl z-10">&times;</button>
+             <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl z-10" aria-label="Cerrar modal">&times;</button>
              <img src="images/ManuToysLogo.PNG" alt="Logo" class="modal-logo mx-auto mb-4">
              <h3 class="text-2xl font-display text-secundario text-center mb-2">Crear Cuenta</h3>
              <p class="text-center text-gray-400 text-sm mb-6">Únete a nuestro club de coleccionistas.</p>
@@ -235,25 +294,27 @@
                     <input type="password" name="password" id="reg-password" class="form-input w-full bg-stone-800 border border-gray-700 rounded-md px-3 py-2 text-white focus:ring-secundario focus:border-secundario" required minlength="6">
                     <p class="error-message">La contraseña debe tener al menos 6 caracteres.</p>
                 </div>
-                <button type="submit" class="w-full text-center bg-secundario hover:bg-secundario-hover text-black font-bold py-3 rounded-lg transition-all duration-300">Registrarse</button>
+                <button type="submit" class="w-full text-center bg-secundario hover:bg-secundario-hover font-bold py-3 rounded-lg transition-all duration-300">Registrarse</button>
             </form>
         </div>
     </div>
 
     <!-- Product Detail Modal --><div id="productDetailModal" class="modal fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-[102] opacity-0">
         <div class="modal-content relative bg-stone-900 border border-primario/30 rounded-xl shadow-2xl w-full max-w-4xl p-8 max-h-[95vh] overflow-y-auto">
-            <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl">&times;</button>
+            <button class="close-modal-btn absolute top-4 right-6 text-gray-400 hover:text-white text-4xl" aria-label="Cerrar modal">&times;</button>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div>
                     <img id="modal-product-image" src="" alt="Imagen de producto" class="w-full h-auto max-h-[400px] object-contain rounded-lg shadow-lg mb-4">
-                    <div id="modal-thumbnail-gallery"></div>
+                    <div id="modal-thumbnail-gallery" class="flex gap-2 justify-center flex-wrap">
+                        <!-- Galería de miniaturas se inyecta aquí -->
+                    </div>
                 </div>
                 <div class="flex flex-col space-y-4">
-                    <!-- CORRECCIÓN RESPONSIVA: Añadido text-2xl --><h3 id="modal-product-name" class="text-2xl md:text-3xl font-display text-primario"></h3>
-                    <!-- CORRECCIÓN RESPONSIVA: Añadido text-3xl --><p id="modal-product-price" class="text-3xl md:text-4xl font-semibold text-secundario"></p>
+                    <h3 id="modal-product-name" class="text-2xl md:text-3xl font-display text-primario"></h3>
+                    <p id="modal-product-price" class="text-3xl md:text-4xl font-semibold text-secundario"></p>
                     <p id="modal-product-desc" class="text-gray-300 mb-auto"></p>
                     
-                    <button id="modal-add-to-cart-btn" class="w-full text-center bg-primario hover:bg-primario-hover text-white font-bold py-3 rounded-lg transition-all duration-300 button-glow mt-4">
+                    <button id="modal-add-to-cart-btn" class="w-full text-center bg-primario hover:bg-primario-hover font-bold py-3 rounded-lg transition-all duration-300 button-glow mt-4">
                         Añadir al Carrito
                     </button>
                 </div>
@@ -261,22 +322,24 @@
         </div>
     </div>
 
-    <!-- Cart Sidebar --><!-- CORRECCIÓN RESPONSIVA: Cambiado a sm:max-w-md --><div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:max-w-md bg-stone-900 border-l border-white/5 shadow-2xl transform translate-x-full z-[101]">
+    <!-- Cart Sidebar --><div id="cart-sidebar" class="fixed top-0 right-0 h-full w-full sm:max-w-md bg-stone-900 border-l border-white/5 shadow-2xl transform translate-x-full z-[101]">
         <div class="flex items-center justify-between p-6 border-b border-gray-700">
             <h3 class="text-2xl font-display text-primario">Tu Garage</h3>
-            <button id="close-cart-btn" class="text-gray-400 hover:text-white text-4xl">&times;</button>
+            <button id="close-cart-btn" class="text-gray-400 hover:text-white text-4xl" aria-label="Cerrar carrito">&times;</button>
         </div>
         <div id="cart-items" class="p-6 flex-grow overflow-y-auto" style="max-height: calc(100vh - 150px);">
-            <!-- Cart items will be injected here --></div>
-        <div id="empty-cart-message" class="p-6 text-center text-gray-500 hidden">
-            <p>Tu garage está vacío. ¡Es hora de añadir Hot Wheels!</p>
+            <!-- Cart items will be injected here -->
+            <div id="empty-cart-message" class="text-center text-gray-500">
+                <p>Tu garage está vacío. ¡Es hora de añadir Hot Wheels!</p>
+            </div>
         </div>
+        
         <div class="p-6 border-t border-gray-700 bg-stone-950">
             <div class="flex justify-between items-center mb-4">
                 <p class="text-lg font-bold text-white">Subtotal:</p>
                 <p id="cart-subtotal" class="text-2xl font-bold text-secundario">$0.00 MXN</p>
             </div>
-            <button type="button" class="w-full text-center bg-primario hover:bg-primario-hover text-white font-bold py-3 rounded-lg transition-all duration-300 button-glow">
+            <button type="button" class="w-full text-center bg-primario font-bold py-3 rounded-lg transition-all duration-300 button-glow disabled opacity-50 cursor-not-allowed">
                 Finalizar Compra
             </button>
         </div>
@@ -289,13 +352,32 @@
         </div>
     </div>
     
-    <!-- Scroll to Top Button --><button id="scrollToTopBtn" class="bg-primario text-white w-12 h-12 rounded-full shadow-lg flex justify-center items-center button-glow">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+    <!-- Scroll to Top Button --><button id="scrollToTopBtn" class="bg-primario w-12 h-12 rounded-full shadow-lg flex justify-center items-center button-glow" aria-label="Volver arriba">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
         </svg>
     </button>
     
-    <!-- CORREGIDO: SDKs de Firebase v8 (compatibles con logica.js) --><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <!-- Banner Promocional "Rexy" (CORREGIDO: Movido fuera de <main>) --><div id="promo-banner" class="promo-banner fixed bottom-4 left-4 z-50 w-full max-w-sm">
+        <div class="relative bg-stone-900 border border-primario/30 rounded-lg shadow-2xl flex items-center gap-4 p-4 overflow-hidden">
+            <!-- Botón de cerrar -->
+            <button id="close-promo-btn" class="absolute top-2 right-2 text-gray-500 hover:text-white" aria-label="Cerrar promoción">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            
+            <!-- Imagen -->
+            <img src="images/Mini GT Porsche 911 Rexy1.PNG" alt="Porsche 911 Rexy" class="w-20 h-20 object-contain flex-shrink-0">
+            
+            <!-- Contenido -->
+            <div>
+                <p class="font-display text-primario text-lg leading-tight">¡Lo más buscado!</p>
+                <p class="text-sm text-white font-bold">Desde la IMSA, llegó el dinosaurio más rápido.</p>
+                <a href="#novedades" classse="text-xs text-secundario hover:underline mt-1">Ver el "Rexy"</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SDKs de Firebase v8 (compatibles con logica.js) --><script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
     
     <!-- Tu script de lógica (ahora carga después de los SDKs de Firebase) --><script src="resources/js/logica.js"></script>

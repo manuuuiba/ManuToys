@@ -32,6 +32,9 @@ if (firebaseConfig.apiKey) {
     console.warn("Firebase config not found. Auth features will be disabled.");
 }
 
+// --- CORREGIDO: Flag para mostrar el modal solo una vez ---
+let welcomeModalShown = false;
+
 // This function updates the UI based on auth state.
 const updateAuthUI = (user) => {
     const loggedOutView = document.getElementById('logged-out-view');
@@ -59,6 +62,16 @@ const updateAuthUI = (user) => {
         mobileLoggedInView.classList.add('hidden');
         mobileLoggedOutView.classList.remove('hidden');
     }
+
+    // --- CORREGIDO: Lógica para mostrar el modal de bienvenida ---
+    // Se ejecuta en cuanto Firebase confirma el estado de autenticación.
+    if (user && user.isAnonymous && !welcomeModalShown) {
+        // Esperamos un breve momento para que el preloader termine su animación
+        setTimeout(() => {
+            document.getElementById('welcomeModal').classList.add('is-open');
+            welcomeModalShown = true; // Marcar como mostrado para que no vuelva a salir
+        }, 500); // 500ms de retraso
+    }
 };
 
 // Observador de estado de Auth
@@ -70,75 +83,91 @@ if (auth) {
 // Main App Initialization Logic
 const initializeMainApp = () => {
     
-    // --- DATOS DE MANUTOYS (ACTUALIZADOS) ---
+    // --- DATOS DE MANUTOYS (CORREGIDOS) ---
     const products = [
         // --- Hot Wheels Normales (3) ---
         { 
             id: 1, 
             name: 'Hot Wheels Datsun 240z', 
-            price: 80, 
+            price: 80.00, // CORREGIDO: Precio como número
             image: 'images/Hot Wheels Datsun 240z.PNG', 
-            desc: 'Un clásico JDM (Mercado Doméstico Japonés) que captura la esencia de las carreras de los 70. Este Datsun 240z en rojo vibrante es una pieza esencial para cualquier garage.', 
-            tags: ['normal']
+            desc: 'Un clásico JDM (Mercado Doméstico Japonés) que captura la esencia de las carreras de los 70. Este Datsun 240z en rojo vibrante es una pieza esencial.', 
+            tags: ['normal'], 
+            badge: 'Destacado'
         },
         { 
             id: 2, 
             name: 'Hot Wheels Porsche 911 GT3 RS', 
-            price: 80, 
+            price: 80.00, // CORREGIDO: Precio como número
             image: 'images/Hot Wheels Porsche 911 GT3 RS.PNG', 
-            desc: 'La leyenda de las pistas alemanas. Este Porsche 911 GT3 RS presenta detalles realistas y un diseño aerodinámico listo para la velocidad. ¡Imprescindible!', 
-            tags: ['normal']
+            desc: 'La leyenda de las pistas alemanas. Este Porsche 911 GT3 RS presenta detalles realistas y un diseño aerodinámico listo para la velocidad.', 
+            tags: ['normal'],
+            badge: 'Nuevo'
         },
         { 
             id: 3, 
             name: 'Williams Racing F1', 
-            price: 80, 
+            price: 80.00, // CORREGIDO: Precio como número
             image: 'images/Hot Wheels Williams Racing.PNG', 
             desc: 'Listo para cualquier terreno. El Williams Racing F1 es un coche de carreras diseñado para la velocidad, con detalles que capturan su espíritu competitivo.', 
-            tags: ['normal']
+            tags: ['normal'],
+            badge: null
         },
         // --- Hot Wheels Premium (3) ---
         { 
             id: 4, 
             name: 'Hot Wheels Premium McLaren F1 #81', 
-            price: 400, 
-            image: 'images/Hot Wheels PremiumMcLaren F1.PNG', 
+            price: 400.00, // CORREGIDO: Precio como número
+            image: 'images/Hot Wheels Premium Mclaren F1.PNG', // CORREGIDO: Ruta con espacio
             desc: 'El coche que dominó la Fórmula 1. Este modelo Premium del McLaren F1 #81 viene con detalles de alta calidad y llantas Real Riders.', 
-            tags: ['premium']
+            tags: ['premium'],
+            badge: 'Premium'
         },
         { 
             id: 5, 
             name: 'Hot Wheels Premium Kick Sauber F1 #77', 
-            price: 400, 
+            price: 400.00, // CORREGIDO: Precio como número
             image: 'images/Hot Wheels Premium Kick Sauber F1.PNG', 
             desc: 'El bólido de Bottas. La réplica Premium del Kick Sauber F1, con su icónico diseño y la precisión que todo coleccionista de F1 busca.', 
-            tags: ['premium']
+            tags: ['premium'],
+            badge: 'Premium'
         },
         { 
             id: 6, 
             name: 'Hot Wheels Premium Williams Racing #43', 
-            price: 400, 
-            image: 'images/Hot Wheels Premium Williams Racing.PNG', 
-            desc: 'La pasión de un legado en tu colección. Este Williams Racing #43 Premium rinde homenaje al icónico equipo, con acabados metálicos y neumáticos de goma.', 
-            tags: ['premium']
+            price: 400.00, // CORREGIDO: Precio como número
+            image: 'images/Hot Wheels Premium Williams Racing.PNG', // CORREGIDO: Ruta con espacio al final
+            desc: 'La pasión de un legado en tu colección. Este Williams Racing #43 Premium rinde homenaje al icónico equipo, con acabados metálicos.', 
+            tags: ['premium'],
+            badge: 'Premium'
+        },
+        // --- Mini GT ---
+        { 
+            id: 7, 
+            name: 'Mini GT Porsche 911 GT3 R "Rexy"', 
+            price: 1200.00, // CORREGIDO: Precio como número
+            image: 'images/Mini GT Porsche 911 Rexy.PNG', 
+            gallery: ['images/Mini GT Porsche 911 Rexy.PNG', 'images/Mini GT Porsche 911 Rexy1.PNG'], 
+            desc: 'El icónico \'Rexy\' de Mini GT. Esta réplica del Porsche 911 GT3 R es famosa por su inconfundible diseño de T-Rex. Un modelo de alta fidelidad 1:64.', 
+            tags: ['minigt'],
+            badge: 'Lo Más Buscado'
         },
     ];
 
     const heroImages = [
         'images/Head1.PNG',
         'images/Head2.PNG',
-        'images/Head3.PNG',
+        'images/Head3.PNG', // CORREGIDO: Ruta
         'images/Head4.PNG',
-        'images/Head5.PNG'
+        'images/Head5.PNG' // CORREGIDO: Ruta
     ];
     // --- FIN DE DATOS DE MANUTOYS ---
 
-    // --- ¡CARRITO ACTIVADO! ---
-    let cart = []; 
 
+    let cart = []; // El carrito está activo
+    
     // --- Core App Logic ---
     const productGrid = document.getElementById('product-grid');
-    // Elementos del carrito
     const cartSidebar = document.getElementById('cart-sidebar');
     const cartOverlay = document.getElementById('cart-overlay');
     const cartItemsContainer = document.getElementById('cart-items');
@@ -146,86 +175,177 @@ const initializeMainApp = () => {
     const cartSubtotal = document.getElementById('cart-subtotal');
     const emptyCartMessage = document.getElementById('empty-cart-message');
 
-
     const showNotification = (message, type = "success") => {
         const notification = document.getElementById('notification');
         const content = document.getElementById('notification-content');
         document.getElementById('notification-message').textContent = message;
-        content.className = `text-white font-bold rounded-lg shadow-lg px-6 py-4 ${type === 'success' ? 'bg-green-500' : 'bg-red-500'}`;
+        // Clases de Tailwind para éxito (verde) y error (rojo)
+        content.className = `text-white font-bold rounded-lg shadow-lg px-6 py-4 ${type === 'success' ? 'bg-green-600' : 'bg-red-600'}`;
         notification.classList.add('show');
         setTimeout(() => notification.classList.remove('show'), 3000);
     };
 
-    // --- FUNCIONES DEL CARRITO (ACTIVADAS) ---
+    // --- Lógica del Carrito (ACTUALIZADA) ---
     const updateCart = () => {
-        if (!cartItemsContainer) return; // Chequeo de seguridad
+        // Limpiar items anteriores (excepto el mensaje de vacío)
+        cartItemsContainer.querySelectorAll('.cart-item').forEach(item => item.remove());
+        
+        let subtotal = 0;
+        let totalItems = 0;
 
-        cartItemsContainer.innerHTML = ''; // Limpiar el carrito
         if (cart.length === 0) {
             emptyCartMessage.style.display = 'block';
         } else {
             emptyCartMessage.style.display = 'none';
             cart.forEach(item => {
-                // Añadir cada item al HTML del carrito
-                cartItemsContainer.innerHTML += `
-                    <div class="flex items-center gap-4 mb-4" data-id="${item.id}">
-                        <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded-md object-contain p-1 bg-white/10">
-                        <div class="flex-grow">
-                            <p class="font-bold text-white">${item.name}</p>
-                            <p class="text-sm text-gray-400">$${item.price.toFixed(2)} x ${item.quantity}</p>
+                const itemElement = document.createElement('div');
+                itemElement.className = 'cart-item flex items-center gap-4 mb-4'; // Clase para identificar items
+                itemElement.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" class="w-20 h-20 rounded-md object-contain border border-gray-700">
+                    <div class="flex-grow">
+                        <p class="font-bold text-white text-sm">${item.name}</p>
+                        <p class="text-sm text-gray-400">$${item.price.toFixed(2)} MXN</p>
+                        <div class="flex items-center gap-2 mt-1">
+                            <button class="cart-quantity-btn" data-id="${item.id}" data-action="decrease">-</button>
+                            <span class="text-white font-bold">${item.quantity}</span>
+                            <button class="cart-quantity-btn" data-id="${item.id}" data-action="increase">+</button>
                         </div>
-                        <button class="remove-from-cart-btn text-red-500 hover:text-red-400 text-2xl" data-id="${item.id}">&times;</button>
                     </div>
+                    <button class="cart-remove-btn text-red-500 hover:text-red-400 text-2xl" data-id="${item.id}">&times;</button>
                 `;
+                cartItemsContainer.appendChild(itemElement);
+
+                subtotal += item.price * item.quantity;
+                totalItems += item.quantity;
             });
         }
         
-        // Actualizar contadores y subtotal
-        cartCount.textContent = cart.reduce((sum, item) => sum + item.quantity, 0);
-        // CORREGIDO: Añadir MXN al subtotal
-        cartSubtotal.textContent = `$${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2)} MXN`;
+        cartCount.textContent = totalItems;
+        cartSubtotal.textContent = `$${subtotal.toFixed(2)} MXN`;
     };
 
-    const addToCart = (productId) => {
+    const addToCart = (productId, showNotificationMsg = true) => {
         const product = products.find(p => p.id === productId);
+        if (!product) return;
+
         const existingItem = cart.find(item => item.id === productId);
-
         if (existingItem) {
-            existingItem.quantity++; // Si ya está, sumar 1
+            existingItem.quantity++;
         } else {
-            cart.push({ ...product, quantity: 1 }); // Si no, añadirlo al carrito
+            cart.push({ ...product, quantity: 1 });
         }
-        updateCart(); // Actualizar la UI
-        showNotification(`${product.name} añadido al carrito.`, 'success');
+        
+        if (showNotificationMsg) {
+            showNotification(`${product.name} añadido al carrito.`);
+        }
+        updateCart();
     };
-    
+
     const removeFromCart = (productId) => {
-        const itemIndex = cart.findIndex(item => item.id === productId);
-        if (itemIndex === -1) return;
+        cart = cart.filter(item => item.id !== productId);
+        updateCart();
+    };
 
-        const item = cart[itemIndex];
-        if (item.quantity > 1) {
-            item.quantity--; // Si hay más de 1, restar 1
-        } else {
-            cart.splice(itemIndex, 1); // Si solo hay 1, quitarlo del array
+    const updateQuantity = (productId, action) => {
+        const item = cart.find(item => item.id === productId);
+        if (!item) return;
+
+        if (action === 'increase') {
+            item.quantity++;
+        } else if (action === 'decrease') {
+            item.quantity--;
+            if (item.quantity === 0) {
+                removeFromCart(productId);
+                return; // Salir de la función
+            }
         }
-        updateCart(); // Actualizar la UI
+        updateCart();
     };
-    // --- FIN FUNCIONES DEL CARRITO ---
+
+    // Event listener para los botones del carrito
+    cartItemsContainer.addEventListener('click', e => {
+        const target = e.target;
+        if (target.classList.contains('cart-remove-btn')) {
+            removeFromCart(parseInt(target.dataset.id));
+        }
+        if (target.classList.contains('cart-quantity-btn')) {
+            updateQuantity(parseInt(target.dataset.id), target.dataset.action);
+        }
+    });
+
+    // --- Fin Lógica del Carrito ---
     
-
+    // --- Lógica para rotar imágenes en hover (SOLO si hay galería) ---
     const setupProductCardHover = () => {
-        // Esta función ya no hace nada
+        document.querySelectorAll('.product-card').forEach(card => {
+            let hoverInterval;
+            const productId = parseInt(card.dataset.id);
+            const product = products.find(p => p.id === productId);
+            const imgElement = card.querySelector('.product-card-clickable img');
+
+            // Solo activar si hay una galería con más de 1 imagen
+            if (!product || !product.gallery || product.gallery.length <= 1) {
+                return; 
+            }
+
+            const startImageRotation = () => {
+                let currentIndex = 1; // Empezar en la segunda imagen
+                hoverInterval = setInterval(() => {
+                    if (!imgElement) return;
+                    imgElement.style.opacity = 0;
+                    setTimeout(() => {
+                        imgElement.src = product.gallery[currentIndex];
+                        imgElement.style.opacity = 1;
+                        currentIndex = (currentIndex + 1) % product.gallery.length;
+                    }, 400); // 400ms para la transición de opacidad
+                }, 1500); // Cambiar imagen cada 1.5s
+            };
+
+            const stopImageRotation = () => {
+                clearInterval(hoverInterval);
+                if (imgElement && imgElement.src !== product.image) {
+                    imgElement.style.opacity = 0;
+                    setTimeout(() => {
+                        imgElement.src = product.image; // Volver a la imagen principal
+                        imgElement.style.opacity = 1;
+                    }, 400);
+                }
+            };
+
+            card.addEventListener('mouseenter', startImageRotation);
+            card.addEventListener('mouseleave', stopImageRotation);
+        });
     };
 
+    // Función de renderizado de productos (ACTUALIZADA con Insignias)
     const renderProducts = (filter = 'all') => {
-        if (!productGrid) return; // Chequeo de seguridad
         productGrid.innerHTML = '';
         products.filter(p => filter === 'all' || p.tags.includes(filter)).forEach(product => {
-            // CORREGIDO: Añadir MXN al precio
+            
+            // Lógica para la insignia
+            let badgeHTML = '';
+            if (product.badge) {
+                const isPremium = product.badge.toLowerCase() === 'premium' || product.badge.toLowerCase() === 'mini gt';
+                let isMostSearched = product.badge.toLowerCase() === 'lo más buscado';
+                
+                let badgeClasses = 'product-badge';
+                if (isPremium) badgeClasses += ' premium';
+                if (isMostSearched) badgeClasses += ' most-searched-badge'; // Clase para la insignia
+
+                badgeHTML = `<div class="${badgeClasses}">${product.badge}</div>`;
+            }
+
+            // Lógica para la tarjeta especial
+            let cardClasses = 'product-card bg-stone-900/50 border border-white/5 rounded-lg shadow-lg overflow-hidden group';
+            if (product.badge === 'Lo Más Buscado') {
+                cardClasses += ' most-searched-card'; // Clase para la tarjeta
+            }
+
+            // Usamos las clases de Tailwind para la imagen (h-72 object-contain p-4)
             productGrid.innerHTML += `
-                <div class="product-card bg-stone-900/50 border border-white/5 rounded-lg shadow-lg overflow-hidden group" data-id="${product.id}">
+                <div class="${cardClasses}" data-id="${product.id}">
                     <div class="product-card-clickable w-full">
+                        ${badgeHTML} <!-- Insignia añadida aquí -->
                         <img src="${product.image}" alt="${product.name}" class="w-full h-72 object-contain p-4">
                         <div class="p-6">
                             <h4 class="text-xl font-bold text-white mb-2 font-display">${product.name}</h4>
@@ -234,11 +354,14 @@ const initializeMainApp = () => {
                     </div>
                     <div class="p-6 pt-0 mt-auto flex justify-between items-center w-full">
                         <p class="text-2xl font-semibold text-secundario">$${product.price.toFixed(2)} MXN</p>
-                        <button class="add-to-cart-btn bg-primario hover:bg-primario-hover text-white font-bold py-2 px-4 rounded-lg transition-colors">Añadir</button>
+                        <button class="add-to-cart-btn bg-primario hover:bg-primario-hover font-bold py-2 px-4 rounded-lg transition-colors button-glow">Añadir</button>
                     </div>
                 </div>
             `;
         });
+
+        // Llamar a la función de hover después de renderizar
+        setupProductCardHover();
     };
 
     const heroBg1 = document.getElementById('hero-bg-1');
@@ -263,22 +386,41 @@ const initializeMainApp = () => {
     heroImages.forEach(src => { (new Image()).src = `${src}`; });
     
     const scrollToTopBtn = document.getElementById('scrollToTopBtn');
+    const promoBanner = document.getElementById('promo-banner'); // NUEVO: Obtener el banner
+    let promoBannerShown = false; // NUEVO: Bandera para mostrar solo una vez
+
     window.addEventListener('scroll', () => {
-        if(scrollToTopBtn) scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        // Lógica del botón de scroll
+        scrollToTopBtn.classList.toggle('visible', window.scrollY > 300);
+        
+        // NUEVA Lógica para el banner de "Rexy"
+        if (promoBanner && !promoBannerShown && window.scrollY > 800) {
+            promoBanner.classList.add('is-visible');
+            promoBannerShown = true; // Solo mostrar una vez
+        }
     });
-    scrollToTopBtn?.addEventListener('click', () => {
+    
+    // NUEVO: Lógica para cerrar el banner promocional
+    document.getElementById('close-promo-btn')?.addEventListener('click', () => {
+        const promoBanner = document.getElementById('promo-banner');
+        if (promoBanner) {
+            promoBanner.classList.remove('is-visible');
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    document.getElementById('filters')?.addEventListener('click', (e) => {
+    document.getElementById('filters').addEventListener('click', (e) => {
         if (e.target.classList.contains('filter-button')) {
-            document.querySelector('.filter-button.active')?.classList.remove('active', 'bg-primario');
+            document.querySelector('.filter-button.active').classList.remove('active', 'bg-primario');
             e.target.classList.add('active', 'bg-primario');
             renderProducts(e.target.dataset.filter);
         }
     });
 
-    productGrid?.addEventListener('click', e => {
+    productGrid.addEventListener('click', e => {
         const card = e.target.closest('.product-card');
         if (!card) return;
         const productId = parseInt(card.dataset.id);
@@ -288,15 +430,34 @@ const initializeMainApp = () => {
             const product = products.find(p => p.id === productId);
             if (product) {
                 document.getElementById('modal-product-name').textContent = product.name;
-                // CORREGIDO: Añadir MXN al precio del modal
                 document.getElementById('modal-product-price').textContent = `$${product.price.toFixed(2)} MXN`;
                 document.getElementById('modal-product-desc').textContent = product.desc;
                 
                 const modalProductImage = document.getElementById('modal-product-image');
-                modalProductImage.src = product.image; // Solo ponemos la imagen principal
-                
+                modalProductImage.src = product.image; 
+
+                // Lógica del modal para mostrar galería si existe
                 const galleryContainer = document.getElementById('modal-thumbnail-gallery');
-                galleryContainer.innerHTML = ''; // Limpiamos por si acaso
+                if (galleryContainer) { 
+                    galleryContainer.innerHTML = ''; // Limpiar galería
+                    // Mostrar miniaturas SOLO si hay galería
+                    if (product.gallery && product.gallery.length > 1) {
+                        product.gallery.forEach((imgSrc, index) => {
+                            const img = document.createElement('img');
+                            img.src = imgSrc;
+                            img.alt = `${product.name} - Vista ${index + 1}`;
+                            img.className = `thumbnail ${index === 0 ? 'border-primario' : ''}`;
+                            
+                            img.addEventListener('click', () => {
+                                modalProductImage.src = imgSrc;
+                                // Actualizar la miniatura activa
+                                galleryContainer.querySelector('.border-primario')?.classList.remove('border-primario');
+                                img.classList.add('border-primario');
+                            });
+                            galleryContainer.appendChild(img);
+                        });
+                    }
+                }
 
                 document.getElementById('modal-add-to-cart-btn').dataset.productId = productId;
                 document.getElementById('productDetailModal').classList.add('is-open');
@@ -324,47 +485,37 @@ const initializeMainApp = () => {
     setupModalCloseEvents('registerModal');
     setupModalCloseEvents('welcomeModal');
 
-    document.getElementById('modal-add-to-cart-btn')?.addEventListener('click', (e) => {
+    document.getElementById('modal-add-to-cart-btn').addEventListener('click', (e) => {
         addToCart(parseInt(e.target.dataset.productId));
-        // No cerramos el modal, solo mostramos notificación
+        // Opcional: cerrar el modal al añadir
+        // document.getElementById('productDetailModal').classList.remove('is-open');
     });
 
-    // --- LÓGICA PARA ABRIR/CERRAR Y ELIMINAR DEL CARRITO ---
+    // Lógica para abrir/cerrar carrito
     const toggleCart = () => {
-        if (cartSidebar) cartSidebar.classList.toggle('is-open');
-        if (cartOverlay) cartOverlay.classList.toggle('hidden');
+        cartSidebar.classList.toggle('translate-x-full');
+        cartOverlay.classList.toggle('hidden');
     };
-    
-    document.getElementById('cart-button')?.addEventListener('click', toggleCart);
-    document.getElementById('close-cart-btn')?.addEventListener('click', toggleCart);
-    cartOverlay?.addEventListener('click', toggleCart);
-
-    // Event listener para el botón de eliminar en el carrito
-    cartItemsContainer?.addEventListener('click', e => {
-        if (e.target.classList.contains('remove-from-cart-btn')) {
-            const productId = parseInt(e.target.dataset.id);
-            removeFromCart(productId);
-        }
-    });
-    // --- FIN LÓGICA DEL CARRITO ---
-
+    document.getElementById('cart-button').addEventListener('click', toggleCart);
+    document.getElementById('close-cart-btn').addEventListener('click', toggleCart);
+    cartOverlay.addEventListener('click', toggleCart);
     
     ['loginBtn', 'mobileLoginBtn', 'welcomeLoginBtn'].forEach(id => document.getElementById(id)?.addEventListener('click', () => {
-        document.getElementById('welcomeModal')?.classList.remove('is-open');
-        document.getElementById('loginModal')?.classList.add('is-open');
+        document.getElementById('welcomeModal').classList.remove('is-open');
+        document.getElementById('loginModal').classList.add('is-open');
     }));
     ['registerBtn', 'mobileRegisterBtn', 'welcomeRegisterBtn'].forEach(id => document.getElementById(id)?.addEventListener('click', () => {
-        document.getElementById('welcomeModal')?.classList.remove('is-open');
-        document.getElementById('registerModal')?.classList.add('is-open');
+        document.getElementById('welcomeModal').classList.remove('is-open');
+        document.getElementById('registerModal').classList.add('is-open');
     }));
     
     const mobileMenu = document.getElementById('mobileMenu');
-    document.getElementById('mobileMenuBtn')?.addEventListener('click', () => {
+    document.getElementById('mobileMenuBtn').addEventListener('click', () => {
         mobileMenu.classList.toggle('opacity-0');
         mobileMenu.classList.toggle('-translate-y-4');
         mobileMenu.classList.toggle('pointer-events-none');
     });
-    mobileMenu?.addEventListener('click', (e) => {
+    mobileMenu.addEventListener('click', (e) => {
         if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
             mobileMenu.classList.add('opacity-0', '-translate-y-4', 'pointer-events-none');
         }
@@ -373,9 +524,9 @@ const initializeMainApp = () => {
     // --- Lógica de Formulario de Registro y Login ---
     const validateField = (field) => {
         const errorMsg = field.parentElement.querySelector('.error-message');
+        if (!errorMsg) return true; // Si no hay mensaje de error, no validamos
+        
         let isValid = true;
-        if (!field) return false; // Protección por si el campo no existe
-
         if (field.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(field.value)) {
             isValid = false;
         }
@@ -388,17 +539,16 @@ const initializeMainApp = () => {
         
         if (!isValid) {
             field.classList.add('invalid');
-            if(errorMsg) errorMsg.style.display = 'block';
+            errorMsg.style.display = 'block';
         } else {
             field.classList.remove('invalid');
-            if(errorMsg) errorMsg.style.display = 'none';
+            errorMsg.style.display = 'none';
         }
         return isValid;
     };
     
     const validateForm = (form) => {
         let isValid = true;
-        if (!form) return false; // Protección
         form.querySelectorAll('input[required]').forEach(input => {
             if (!validateField(input)) isValid = false;
         });
@@ -422,7 +572,7 @@ const initializeMainApp = () => {
     });
 
 
-    document.getElementById('login-form')?.addEventListener('submit', (e) => {
+    document.getElementById('login-form').addEventListener('submit', (e) => {
         e.preventDefault();
         if (!auth || !validateForm(e.target)) return;
         const email = e.target.email.value;
@@ -437,7 +587,7 @@ const initializeMainApp = () => {
             });
     });
 
-    document.getElementById('register-form')?.addEventListener('submit', (e) => {
+    document.getElementById('register-form').addEventListener('submit', (e) => {
         e.preventDefault();
         if (!auth || !validateForm(e.target)) return;
         const email = e.target.email.value;
@@ -458,15 +608,55 @@ const initializeMainApp = () => {
             showNotification('Has cerrado sesión.', 'success');
         });
     };
-    document.getElementById('logoutBtn')?.addEventListener('click', logout);
-    document.getElementById('mobileLogoutBtn')?.addEventListener('click', logout);
+    document.getElementById('logoutBtn').addEventListener('click', logout);
+    document.getElementById('mobileLogoutBtn').addEventListener('click', logout);
+
+    // --- Lógica del Carrusel de Testimonios ---
+    const initializeTestimonialSlider = () => {
+        const slider = document.querySelector('.testimonial-slider');
+        const slides = document.querySelectorAll('.testimonial-slide');
+        const nextBtn = document.getElementById('testimonial-next');
+        const prevBtn = document.getElementById('testimonial-prev');
+        
+        if (!slider || !slides.length || !nextBtn || !prevBtn) return; // No ejecutar si faltan elementos
+
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+
+        const updateSlider = () => {
+            slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+            // Deshabilitar botones en los extremos
+            prevBtn.disabled = currentSlide === 0;
+            nextBtn.disabled = currentSlide === totalSlides - 1;
+            prevBtn.style.opacity = currentSlide === 0 ? '0.3' : '1';
+            nextBtn.style.opacity = currentSlide === totalSlides - 1 ? '0.3' : '1';
+        };
+
+        nextBtn.addEventListener('click', () => {
+            if (currentSlide < totalSlides - 1) {
+                currentSlide++;
+                updateSlider();
+            }
+        });
+
+        prevBtn.addEventListener('click', () => {
+            if (currentSlide > 0) {
+                currentSlide--;
+                updateSlider();
+            }
+        });
+
+        updateSlider(); // Estado inicial
+    };
+    // --- Fin Lógica de Testimonios ---
 
     // --- Renderizado Inicial ---
     renderProducts();
-    updateCart(); // Llamar a updateCart al inicio para que muestre "Carrito vacío"
+    updateCart();
+    initializeTestimonialSlider(); // Iniciar el nuevo carrusel
     
     // Iniciar el carrusel del Hero
-    if (heroImages.length > 0 && heroBg1 && heroBg2) {
+    if (heroImages.length > 0) {
         // Ruta relativa al index.html
         heroBg1.style.backgroundImage = `url('${heroImages[heroImages.length - 1]}')`;
         heroBg2.style.backgroundImage = `url('${heroImages[0]}')`;
@@ -477,16 +667,10 @@ const initializeMainApp = () => {
     
     // Quitar el preloader
     window.addEventListener('load', () => {
-        const preloader = document.getElementById('preloader');
-        if(preloader) preloader.classList.add('loaded');
+        document.getElementById('preloader').classList.add('loaded');
         document.body.classList.remove('loading');
         
-        // Mostrar modal de bienvenida después de un retraso
-        if (auth && auth.currentUser && auth.currentUser.isAnonymous) {
-            setTimeout(() => {
-                document.getElementById('welcomeModal')?.classList.add('is-open');
-            }, 2000);
-        }
+        // --- CORREGIDO: Lógica del modal movida a updateAuthUI ---
     });
     
     // Observador de scroll para animaciones

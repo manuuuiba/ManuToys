@@ -1,33 +1,45 @@
 /* --- Design System & Base --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap');
-
 :root {
-    --color-primario: #f97316; /* Naranja (orange-500) */
-    --color-primario-hover: #fb923c; /* Naranja (orange-400) */
-    --color-secundario: #0ea5e9; /* Azul (sky-500) */
-    --color-secundario-hover: #38bdf8; /* Azul (sky-400) */
+    --color-background: #0c101b; /* Azul nocturno oscuro */
+    --color-surface: #171e2c;   /* Superficie azulada */
+    --color-primario: #a3e635;  /* Verde lima neón */
+    --color-primario-hover: #bef264;
+    --color-secundario: #06b6d4; /* Cyan técnico */
+    --color-texto: #e2e8f0;      /* Blanco técnico (slate-200) */
+    --color-texto-secundario: #94a3b8; /* Gris (slate-400) */
     
-    --color-background: #0c101b; /* Azul Nocturno Oscuro */
-    --color-surface: #1a202c; /* Azul Nocturno Claro */
-    --color-text: #e2e8f0; /* Gris Claro (slate-200) */
-    
-    /* Fuentes de ManuToys */
     --font-body: 'Inter', sans-serif;
-    --font-heading: 'Poppins', sans-serif;
+    --font-display: 'Poppins', sans-serif; /* Poppins para títulos */
 }
+
 body {
     font-family: var(--font-body);
     background-color: var(--color-background);
-    color: var(--color-text);
-    background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-    background-size: 20px 20px;
+    color: var(--color-texto);
+    /* Patrón de rejilla sutil */
+    background-image: linear-gradient(rgba(163, 230, 53, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(163, 230, 53, 0.05) 1px, transparent 1px);
+    background-size: 30px 30px;
 }
 body.loading {
     overflow: hidden;
 }
-.font-display { font-family: var(--font-heading); }
+.font-display { font-family: var(--font-display); }
+.text-primario { color: var(--color-primario); }
+.text-secundario { color: var(--color-secundario); }
+.bg-primario { background-color: var(--color-primario); }
+.bg-secundario { background-color: var(--color-secundario); }
+.hover\:bg-primario-hover:hover { background-color: var(--color-primario-hover); }
+.hover\:bg-secundario-hover:hover { background-color: var(--color-secundario); } /* Asumiendo que no hay hover definido */
+.border-primario { border-color: var(--color-primario); }
+.focus\:border-primario:focus { border-color: var(--color-primario); }
+.focus\:ring-primario:focus { --tw-ring-color: var(--color-primario); }
+.focus\:border-secundario:focus { border-color: var(--color-secundario); }
+.focus\:ring-secundario:focus { --tw-ring-color: var(--color-secundario); }
+.hover\:text-primario:hover { color: var(--color-primario); }
+
+
 .text-shadow-glow { 
-    text-shadow: 0 0 8px var(--color-primario), 0 0 20px rgba(249, 115, 22, 0.5);
+    text-shadow: 0 0 8px var(--color-primario), 0 0 20px var(--color-primario);
 }
 
 /* --- Preloader --- */
@@ -63,7 +75,6 @@ body.loading {
         filter: drop-shadow(0 0 20px var(--color-primario));
     }
 }
-/* --- Estilos de Murciélagos (Eliminados) --- */
 
 
 /* --- Hero Section --- */
@@ -84,37 +95,53 @@ body.loading {
     transition: opacity 1.5s ease-in-out;
     z-index: 1;
     will-change: opacity;
-    transform: translateZ(0); 
-    filter: brightness(0.6); /* Oscurecer un poco para el texto */
+    transform: translateZ(0); /* Hardware acceleration */
 }
 .hero-bg.active {
-    opacity: 1;
+    opacity: 0.5; /* Opacidad para que el texto resalte */
     z-index: 2;
 }
-.hero-logo { filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.6)); }
-
-/* Animación Flicker (Eliminada) */
+.hero-logo { filter: drop-shadow(0 0 15px rgba(163, 230, 53, 0.6)); }
 
 
-/* --- Animaciones & Transiciones --- */
+/* --- Animations & Transitions --- */
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes spin { to { transform: rotate(360deg); } }
 .animate-fade-in { animation: fadeIn 1.5s ease-out forwards; }
 .animate-slide-up { animation: slideUp 1s ease-out 0.5s forwards; opacity: 0; }
 .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
-.button-glow:hover { box-shadow: 0 0 8px var(--color-primario), 0 0 20px var(--color-primario), 0 0 30px var(--color-primario); }
 
-/* --- Estilos IA (Eliminados) --- */
+/* --- Botones --- */
+.button-glow {
+    color: var(--color-background); /* Texto oscuro para botones */
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+.button-glow:hover { 
+    box-shadow: 0 0 8px var(--color-primario), 0 0 20px var(--color-primario), 0 0 30px var(--color-primario);
+}
+.button-glow:active { /* Efecto de clic */
+    transform: scale(0.98);
+}
+.filter-button { 
+    transition: all 0.2s ease-in-out; 
+}
+.filter-button.active { 
+    background-color: var(--color-primario); 
+    color: var(--color-background); /* Texto oscuro */
+    box-shadow: 0 0 10px var(--color-primario); 
+}
+.filter-button:active {
+    transform: scale(0.98);
+}
 
-/* --- Feature Boxes (Community Section) --- */
-.feature-box {
+/* --- Category Boxes (Productos) --- */
+.category-box {
     background-color: var(--color-surface);
     border: 1px solid var(--color-primario);
     border-radius: 1.5rem;
     padding: 2.5rem 1.5rem;
-    box-shadow: 0 0 15px rgba(249, 115, 22, 0.1);
+    box-shadow: 0 0 15px rgba(163, 230, 53, 0.1);
     transition: all 0.3s ease-in-out;
     position: relative;
     overflow: hidden;
@@ -124,27 +151,13 @@ body.loading {
     justify-content: center;
     height: 100%;
     will-change: transform, box-shadow;
-    transform: translateZ(0); 
+    transform: translateZ(0); /* Hardware acceleration */
 }
-
-.feature-box::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 1.5rem;
-    background: linear-gradient(45deg, var(--color-primario) 0%, var(--color-secundario) 100%);
-    z-index: 0;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-    filter: blur(8px);
-}
-.feature-box:hover::before { opacity: 0.3; }
-.feature-box > * { position: relative; z-index: 1; }
-.feature-box:hover {
+.category-box:hover {
     transform: translateY(-8px) scale(1.02);
-    box-shadow: 0 12px 25px rgba(249, 115, 22, 0.2);
+    box-shadow: 0 12px 25px rgba(163, 230, 53, 0.2);
 }
-.feature-icon-wrapper {
+.category-icon-wrapper {
     margin-bottom: 1rem;
     position: relative;
     padding: 0.5rem;
@@ -152,13 +165,64 @@ body.loading {
     background-color: rgba(255, 255, 255, 0.05);
     transition: all 0.3s ease-in-out;
 }
-.feature-box:hover .feature-icon-wrapper {
+.category-box:hover .category-icon-wrapper {
     transform: rotate(10deg) scale(1.1);
 }
-.feature-box:nth-child(1) { border-color: var(--color-secundario); }
-.feature-box:nth-child(2) { border-color: var(--color-primario); }
+.category-box:nth-child(1) { border-color: var(--color-secundario); }
+.category-box:nth-child(2) { border-color: var(--color-primario); }
 
-/* --- Components --- */
+/* --- Tarjetas de Producto --- */
+.product-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out, border-color 0.3s ease-in-out;
+    will-change: transform, box-shadow;
+    transform: translateZ(0); /* Hardware acceleration */
+    position: relative; /* Necesario para la insignia */
+    border-color: rgba(255, 255, 255, 0.05); /* Borde sutil */
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(163, 230, 53, 0.1), 0 0 15px rgba(163, 230, 53, 0.1);
+    border-color: var(--color-primario); /* Borde verde al hacer hover */
+}
+.product-card-clickable { cursor: pointer; }
+.product-card-clickable img {
+    transition: opacity 0.4s ease-in-out;
+}
+
+/* --- Insignias de Producto (NUEVO) --- */
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: var(--color-primario);
+    color: var(--color-background);
+    padding: 0.25rem 0.75rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    z-index: 10;
+    text-transform: uppercase;
+}
+.product-badge.premium {
+    background-color: var(--color-secundario);
+    color: var(--color-background);
+}
+.most-searched-badge {
+    background: linear-gradient(90deg, var(--color-primario), var(--color-secundario));
+    color: var(--color-background);
+}
+/* Animación para tarjeta "Lo Más Buscado" */
+.most-searched-card {
+    border-color: var(--color-primario);
+    animation: pulse-border 2s infinite;
+}
+@keyframes pulse-border {
+    0% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(163, 230, 53, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(163, 230, 53, 0); }
+}
+
+/* --- Componentes --- */
 .modal { transition: opacity 0.3s ease, visibility 0.3s; visibility: hidden; }
 .modal.is-open { visibility: visible; opacity: 1; }
 .modal-content { 
@@ -166,7 +230,7 @@ body.loading {
     transform: scale(0.95); 
     position: relative;
     border: 1px solid var(--color-primario);
-    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM41 48c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM71 78c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z" fill="%23f97316" fill-opacity="0.05" fill-rule="evenodd"/></svg>');
+    background-color: var(--color-surface); /* Fondo sólido */
 }
 .modal.is-open .modal-content { transform: scale(1); }
 .close-modal-btn { font-size: 2rem; line-height: 1; }
@@ -179,22 +243,11 @@ body.loading {
 #cart-sidebar.is-open { transform: translateX(0); }
 #mobileMenu { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
 .filter-button { transition: all 0.2s ease-in-out; }
-.filter-button.active { background-color: var(--color-primario); color: white; box-shadow: 0 0 10px var(--color-primario); }
 #notification { z-index: 100; position: fixed; bottom: 1.5rem; right: 1.5rem; transform: translateY(200%); transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
 #notification.show { transform: translateY(0); }
 .form-input.invalid { border-color: #ef4444; }
 .error-message { color: #f87171; font-size: 0.875rem; display: none; margin-top: 4px;}
 .form-input.invalid ~ .error-message { display: block; }
-.product-card {
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-    will-change: transform, box-shadow;
-    transform: translateZ(0); 
-}
-.product-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.1), 0 0 15px rgba(249, 115, 22, 0.1);
-}
-.product-card-clickable { cursor: pointer; }
 
 /* --- Social Icons --- */
 .social-icons a {
@@ -215,6 +268,7 @@ body.loading {
     transform: translateY(20px);
     pointer-events: none;
     transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    color: var(--color-background); /* Color de ícono */
 }
 #scrollToTopBtn.visible {
     opacity: 1;
@@ -222,12 +276,117 @@ body.loading {
     pointer-events: auto;
 }
 
-/* --- Product Image Transitions --- */
-.product-card-clickable img {
-    transition: opacity 0.4s ease-in-out;
-}
+/* --- Modal Product Gallery (CORREGIDO) --- */
 #modal-product-image {
     transition: opacity 0.4s ease-in-out;
 }
-/* --- Estilos de Miniaturas (Eliminados) --- */
+.thumbnail {
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    border: 2px solid transparent;
+    border-radius: 0.375rem; /* rounded-md */
+    height: 64px; /* h-16 */
+    width: 64px; /* w-16 */
+    object-fit: contain; /* object-contain */
+    background-color: #fff; /* Fondo blanco para miniaturas */
+}
+.thumbnail:hover { transform: scale(1.05); }
+.thumbnail.border-primario { /* Clase para miniatura activa */
+    border-color: var(--color-primario);
+    box-shadow: 0 0 10px var(--color-primario);
+}
+
+/* --- Estilos del Carrito (CORREGIDO) --- */
+.cart-quantity-btn {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-texto-secundario);
+    color: var(--color-texto);
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    font-weight: bold;
+    transition: all 0.2s ease;
+}
+.cart-quantity-btn:hover {
+    background-color: var(--color-primario);
+    border-color: var(--color-primario);
+    color: var(--color-background);
+}
+.cart-remove-btn {
+    transition: transform 0.2s ease;
+}
+.cart-remove-btn:hover {
+    transform: scale(1.1);
+}
+
+/* --- Divisor de Sección (NUEVO) --- */
+.section-divider {
+    height: 2px;
+    background-color: rgba(163, 230, 53, 0.1);
+    border-radius: 1px;
+    position: relative;
+    overflow: hidden;
+    margin: 3rem 0;
+}
+.section-divider::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--color-primario), transparent);
+    animation: scan-line 5s linear infinite;
+}
+@keyframes scan-line {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(600%); } /* 500% (ancho del contenedor) + 100% (ancho del scanner) */
+}
+
+/* --- Carrusel de Testimonios (NUEVO) --- */
+.testimonial-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+.testimonial-nav:hover:not(:disabled) {
+    background-color: var(--color-primario);
+    color: var(--color-background);
+}
+.testimonial-nav:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+.testimonial-nav.left-0 { left: -10px; }
+.testimonial-nav.right-0 { right: -10px; }
+
+/* --- Banner Promocional "Rexy" (NUEVO) --- */
+.promo-banner {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    pointer-events: none;
+    will-change: opacity, transform;
+}
+.promo-banner.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+.promo-banner a {
+    color: var(--color-secundario);
+}
+.promo-banner a:hover {
+    text-decoration: underline;
+}
 
