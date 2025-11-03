@@ -1,0 +1,233 @@
+/* --- Design System & Base --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Poppins:wght@700&display=swap');
+
+:root {
+    --color-primario: #f97316; /* Naranja (orange-500) */
+    --color-primario-hover: #fb923c; /* Naranja (orange-400) */
+    --color-secundario: #0ea5e9; /* Azul (sky-500) */
+    --color-secundario-hover: #38bdf8; /* Azul (sky-400) */
+    
+    --color-background: #0c101b; /* Azul Nocturno Oscuro */
+    --color-surface: #1a202c; /* Azul Nocturno Claro */
+    --color-text: #e2e8f0; /* Gris Claro (slate-200) */
+    
+    /* Fuentes de ManuToys */
+    --font-body: 'Inter', sans-serif;
+    --font-heading: 'Poppins', sans-serif;
+}
+body {
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-text);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+    background-size: 20px 20px;
+}
+body.loading {
+    overflow: hidden;
+}
+.font-display { font-family: var(--font-heading); }
+.text-shadow-glow { 
+    text-shadow: 0 0 8px var(--color-primario), 0 0 20px rgba(249, 115, 22, 0.5);
+}
+
+/* --- Preloader --- */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--color-background);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 1s ease-in-out;
+}
+#preloader.loaded {
+    opacity: 0;
+    pointer-events: none;
+}
+.preloader-logo {
+    width: 200px;
+    animation: pulse-glow 2s infinite ease-in-out;
+    will-change: transform, filter;
+}
+@keyframes pulse-glow {
+    0%, 100% {
+        transform: scale(1);
+        filter: drop-shadow(0 0 10px var(--color-primario));
+    }
+    50% {
+        transform: scale(1.05);
+        filter: drop-shadow(0 0 20px var(--color-primario));
+    }
+}
+/* --- Estilos de Murciélagos (Eliminados) --- */
+
+
+/* --- Hero Section --- */
+#hero {
+    position: relative;
+    background-color: var(--color-background);
+}
+.hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center; /* Centrado */
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1.5s ease-in-out;
+    z-index: 1;
+    will-change: opacity;
+    transform: translateZ(0); 
+    filter: brightness(0.6); /* Oscurecer un poco para el texto */
+}
+.hero-bg.active {
+    opacity: 1;
+    z-index: 2;
+}
+.hero-logo { filter: drop-shadow(0 0 15px rgba(249, 115, 22, 0.6)); }
+
+/* Animación Flicker (Eliminada) */
+
+
+/* --- Animaciones & Transiciones --- */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-fade-in { animation: fadeIn 1.5s ease-out forwards; }
+.animate-slide-up { animation: slideUp 1s ease-out 0.5s forwards; opacity: 0; }
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s, transform 0.8s; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+.button-glow:hover { box-shadow: 0 0 8px var(--color-primario), 0 0 20px var(--color-primario), 0 0 30px var(--color-primario); }
+
+/* --- Estilos IA (Eliminados) --- */
+
+/* --- Feature Boxes (Community Section) --- */
+.feature-box {
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-primario);
+    border-radius: 1.5rem;
+    padding: 2.5rem 1.5rem;
+    box-shadow: 0 0 15px rgba(249, 115, 22, 0.1);
+    transition: all 0.3s ease-in-out;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    will-change: transform, box-shadow;
+    transform: translateZ(0); 
+}
+
+.feature-box::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 1.5rem;
+    background: linear-gradient(45deg, var(--color-primario) 0%, var(--color-secundario) 100%);
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    filter: blur(8px);
+}
+.feature-box:hover::before { opacity: 0.3; }
+.feature-box > * { position: relative; z-index: 1; }
+.feature-box:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 12px 25px rgba(249, 115, 22, 0.2);
+}
+.feature-icon-wrapper {
+    margin-bottom: 1rem;
+    position: relative;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease-in-out;
+}
+.feature-box:hover .feature-icon-wrapper {
+    transform: rotate(10deg) scale(1.1);
+}
+.feature-box:nth-child(1) { border-color: var(--color-secundario); }
+.feature-box:nth-child(2) { border-color: var(--color-primario); }
+
+/* --- Components --- */
+.modal { transition: opacity 0.3s ease, visibility 0.3s; visibility: hidden; }
+.modal.is-open { visibility: visible; opacity: 1; }
+.modal-content { 
+    transition: transform 0.3s ease; 
+    transform: scale(0.95); 
+    position: relative;
+    border: 1px solid var(--color-primario);
+    background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM41 48c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zM71 78c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7z" fill="%23f97316" fill-opacity="0.05" fill-rule="evenodd"/></svg>');
+}
+.modal.is-open .modal-content { transform: scale(1); }
+.close-modal-btn { font-size: 2rem; line-height: 1; }
+.modal-logo {
+    height: 4rem;
+    filter: drop-shadow(0 0 10px var(--color-primario));
+}
+
+#cart-sidebar { transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+#cart-sidebar.is-open { transform: translateX(0); }
+#mobileMenu { transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; }
+.filter-button { transition: all 0.2s ease-in-out; }
+.filter-button.active { background-color: var(--color-primario); color: white; box-shadow: 0 0 10px var(--color-primario); }
+#notification { z-index: 100; position: fixed; bottom: 1.5rem; right: 1.5rem; transform: translateY(200%); transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+#notification.show { transform: translateY(0); }
+.form-input.invalid { border-color: #ef4444; }
+.error-message { color: #f87171; font-size: 0.875rem; display: none; margin-top: 4px;}
+.form-input.invalid ~ .error-message { display: block; }
+.product-card {
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    will-change: transform, box-shadow;
+    transform: translateZ(0); 
+}
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 20px rgba(249, 115, 22, 0.1), 0 0 15px rgba(249, 115, 22, 0.1);
+}
+.product-card-clickable { cursor: pointer; }
+
+/* --- Social Icons --- */
+.social-icons a {
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+.social-icons a:hover {
+    color: var(--color-primario);
+    transform: scale(1.1);
+}
+
+/* --- Scroll to Top Button --- */
+#scrollToTopBtn {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    z-index: 50;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+#scrollToTopBtn.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* --- Product Image Transitions --- */
+.product-card-clickable img {
+    transition: opacity 0.4s ease-in-out;
+}
+#modal-product-image {
+    transition: opacity 0.4s ease-in-out;
+}
+/* --- Estilos de Miniaturas (Eliminados) --- */
+
