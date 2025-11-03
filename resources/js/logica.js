@@ -32,6 +32,9 @@ if (firebaseConfig.apiKey) {
     console.warn("Firebase config not found. Auth features will be disabled.");
 }
 
+// --- CORREGIDO: Flag para mostrar el modal solo una vez ---
+let welcomeModalShown = false;
+
 // This function updates the UI based on auth state.
 const updateAuthUI = (user) => {
     const loggedOutView = document.getElementById('logged-out-view');
@@ -58,6 +61,16 @@ const updateAuthUI = (user) => {
 
         mobileLoggedInView.classList.add('hidden');
         mobileLoggedOutView.classList.remove('hidden');
+    }
+
+    // --- CORREGIDO: Lógica para mostrar el modal de bienvenida ---
+    // Se ejecuta en cuanto Firebase confirma el estado de autenticación.
+    if (user && user.isAnonymous && !welcomeModalShown) {
+        // Esperamos un breve momento para que el preloader termine su animación
+        setTimeout(() => {
+            document.getElementById('welcomeModal').classList.add('is-open');
+            welcomeModalShown = true; // Marcar como mostrado para que no vuelva a salir
+        }, 500); // 500ms de retraso
     }
 };
 
@@ -656,12 +669,8 @@ const initializeMainApp = () => {
     window.addEventListener('load', () => {
         document.getElementById('preloader').classList.add('loaded');
         document.body.classList.remove('loading');
-        // Mostrar modal de bienvenida después de un retraso
-        if (auth && auth.currentUser && auth.currentUser.isAnonymous) {
-            setTimeout(() => {
-                document.getElementById('welcomeModal').classList.add('is-open');
-            }, 2000);
-        }
+        
+        // --- CORREGIDO: Lógica del modal movida a updateAuthUI ---
     });
     
     // Observador de scroll para animaciones
